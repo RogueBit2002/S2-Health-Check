@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>HetBetereGroepje.HealthCheck.Data</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySqlConnector" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Health Check - Factory\Health Check - Factory.csproj" />
+    <ProjectReference Include="..\Health Check - High Domain\Health Check - High Domain.csproj" />
+    <ProjectReference Include="..\Health Check - IData\Health Check - IData.csproj" />
+    <ProjectReference Include="..\Health Check - Low Domain\Health Check - Low Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>HetBetereGroepje.HealthCheck.View</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Health Check - Data\Health Check - Data.csproj" />
+    <ProjectReference Include="..\Health Check - Factory\Health Check - Factory.csproj" />
+    <ProjectReference Include="..\Health Check - High Domain\Health Check - High Domain.csproj" />
+    <ProjectReference Include="..\Health Check - IData\Health Check - IData.csproj" />
+    <ProjectReference Include="..\Health Check - ILogic\Health Check - ILogic.csproj" />
+    <ProjectReference Include="..\Health Check - Logic\Health Check - Logic.csproj" />
+    <ProjectReference Include="..\Health Check - Low Domain\Health Check - Low Domain.csproj" />
+  </ItemGroup>
+
+</Project>

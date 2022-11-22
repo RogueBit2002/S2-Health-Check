@@ -1,0 +1,19 @@
+﻿@using HetBetereGroepje.HealthCheck.Domain.High
+@model HomeViewModel
+
+<div>
+	@foreach(IHealthCheck healthCheck in @Model.healthChecks)
+	{
+		<a href="@AppConstants.Paths.HealthCheck/@healthCheck.Hash">@healthCheck.Name</a><br />
+	}
+</div>
+<br />
+<br />
+<form asp-controller="HealthCheck" asp-action="Create">
+    <label>Name</label>
+    <br />
+    <input type="text" asp-for="name" />
+    <br />
+    <input type="hidden" asp-for="redirect" value="@Model.absoluteUri"/>
+    <input type="submit" value="Create"/>
+</form>
