@@ -31,7 +31,7 @@ namespace HetBetereGroepje.HealthCheck.Logic
         public bool TryLogin(string email, string password, out uint id)
         {
             id = 0;
-            Domain.Low.IManager user = dataService.GetManager(email);
+            Domain.Low.IManagerLow user = dataService.GetManager(email);
             if (user == null)
                 return false;
 

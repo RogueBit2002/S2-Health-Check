@@ -9,7 +9,7 @@ namespace HetBetereGroepje.HealthCheck.IData
 {
     public interface IManagerDataService: IDisposable
     {
-        public IManager GetManager(uint id);
-        public IManager GetManager(string email);
+        public IManagerLow GetManager(uint id);
+        public IManagerLow GetManager(string email);
     }
 }

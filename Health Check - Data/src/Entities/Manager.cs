@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HetBetereGroepje.HealthCheck.Data.Entities
 {
-    internal class Manager : IManager
+    internal class Manager : IManagerLow
     {
         public uint ID { get; set; }
         public string Email { get; set; } = string.Empty;

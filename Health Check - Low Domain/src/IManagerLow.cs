@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HetBetereGroepje.HealthCheck.Domain.Low
 {
-    public interface IManager : High.IManager
+    public interface IManagerLow: High.IManager
     {
         public string Password { get; }
     }

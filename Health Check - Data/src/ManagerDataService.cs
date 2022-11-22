@@ -34,7 +34,7 @@ namespace HetBetereGroepje.HealthCheck.Data
             connection.Dispose();
         }
 
-        public IManager GetManager(uint id)
+        public IManagerLow GetManager(uint id)
         {
             string query = "SELECT * FROM `manager` WHERE `id`=@id;";
 
@@ -57,7 +57,7 @@ namespace HetBetereGroepje.HealthCheck.Data
             return manager;
         }
 
-        public IManager GetManager(string email)
+        public IManagerLow GetManager(string email)
         {
             string query = "SELECT * FROM `manager` WHERE `email`=@email;";
 

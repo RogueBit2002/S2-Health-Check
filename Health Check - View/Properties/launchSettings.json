@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "Health_Check___View": {
+    "HealthCheck.View": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

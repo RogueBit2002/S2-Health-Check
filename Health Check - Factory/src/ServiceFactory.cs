@@ -31,17 +31,12 @@ namespace HetBetereGroepje.HealthCheck.Factory
             LoadAssemblies();
 
             AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(a => a.GetTypes().Where(t => !t.IsAbstract)) //Get all non-abstract types
-                .SelectMany(t => t.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static)
-                    .Where(m => !m.IsConstructor && m.GetParameters().Length == 0
-                    && m.GetCustomAttribute<ServiceFactoryAttribute>() != null 
-                    && m.ReturnType != typeof(void))) //Get all valid methods
-                .ToList().ForEach(m => factories.Add(m.ReturnType, m)); //Add to factories
-        }
-
-        public static void Test()
-        {
-            
+                .SelectMany(a => a.GetTypes())
+                .SelectMany(t => t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static))
+                .Where(m => !m.IsConstructor && m.GetParameters().Length == 0
+                && m.GetCustomAttribute<ServiceFactoryAttribute>() != null
+                && (m.ReturnType.GetTypeInfo().IsClass || m.ReturnType.GetTypeInfo().IsInterface))
+                .ToList().ForEach(m => factories.Add(m.ReturnType, m));
         }
 
         public static T Create<T>() where T : class
@@ -51,26 +46,5 @@ namespace HetBetereGroepje.HealthCheck.Factory
 
             return factories[typeof(T)].Invoke(null, null) as T;
         }
-        /*
-        /// <summary>
-        /// Returns a service object of type <typeparamref name="T" />. When no service of that types exist, it tries to create it using a factory it found.
-        /// </summary>
-        /// <typeparam name="T">The type of the service</typeparam>
-        /// <returns>Service of type <typeparamref name="T"/></returns>
-        /// <exception cref="ArgumentException"></exception>
-        public static T? Get<T>() where T : class
-        {
-            /*foreach (object service in cachedServices)
-                if (service is T)
-                    return service as T;* /
-
-            if(!factories.ContainsKey(typeof(T)))
-                throw new ArgumentException($"Service factory of type {typeof(T)} isn't specified.");
-
-            
-            object newService = factories[typeof(T)].Invoke(null, null);
-            //cachedServices.Add(newService);
-            return newService as T;
-        }*/
     }
 }
