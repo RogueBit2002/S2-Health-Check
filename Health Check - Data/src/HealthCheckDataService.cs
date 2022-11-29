@@ -1,6 +1,5 @@
 ﻿using HetBetereGroepje.HealthCheck.Data.Entities;
 using HetBetereGroepje.HealthCheck.Domain.High;
-using HetBetereGroepje.HealthCheck.Factory;
 using HetBetereGroepje.HealthCheck.IData;
 using MySqlConnector;
 using System;
@@ -13,13 +12,6 @@ namespace HetBetereGroepje.HealthCheck.Data
 {
     public class HealthCheckDataService : IHealthCheckDataService
     {
-        [ServiceFactory]
-        private static IHealthCheckDataService CreateService()
-        {
-            return new HealthCheckDataService();
-        }
-
-
         private MySqlConnection connection;
 
         private HealthCheckDataService()

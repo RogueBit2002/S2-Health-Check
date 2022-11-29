@@ -1,5 +1,4 @@
 ﻿using HetBetereGroepje.HealthCheck.Domain.Low;
-using HetBetereGroepje.HealthCheck.Factory;
 using HetBetereGroepje.HealthCheck.IData;
 using HetBetereGroepje.HealthCheck.Data.Entities;
 using System;
@@ -14,13 +13,6 @@ namespace HetBetereGroepje.HealthCheck.Data
 {
     public class ManagerDataService : IManagerDataService
     {
-        [ServiceFactory]
-        private static IManagerDataService CreateService()
-        {
-            return new ManagerDataService();
-        }
-
-
         private MySqlConnection connection;
 
         private ManagerDataService()
@@ -38,7 +30,7 @@ namespace HetBetereGroepje.HealthCheck.Data
         {
             string query = "SELECT * FROM `manager` WHERE `id`=@id;";
 
-
+            
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("id", id);
 
@@ -52,6 +44,7 @@ namespace HetBetereGroepje.HealthCheck.Data
 
             Manager manager = reader.GetManager();
 
+            
             reader.Close();
 
             return manager;

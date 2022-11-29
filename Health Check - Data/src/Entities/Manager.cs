@@ -24,7 +24,6 @@ namespace HetBetereGroepje.HealthCheck.Data.Entities
 
     internal static partial class ReaderExtensions
     {
-
         public static Manager GetManager(this MySqlDataReader reader)
         {
             uint id = reader.GetUInt32("id");

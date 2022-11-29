@@ -12,6 +12,8 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
 
         public LoginController(IManagerService userService) => this.userService = userService;
 
+
+
         [Route(AppConstants.Paths.Login)]
         public IActionResult Index(string redirect)
         {

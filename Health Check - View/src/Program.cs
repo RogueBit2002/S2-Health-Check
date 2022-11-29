@@ -1,5 +1,7 @@
+using HetBetereGroepje.HealthCheck.Data;
 using HetBetereGroepje.HealthCheck.Factory;
 using HetBetereGroepje.HealthCheck.ILogic;
+using HetBetereGroepje.HealthCheck.Logic;
 
 ServiceFactory.Init();
 
@@ -11,7 +13,7 @@ builder.Services.AddSession();
 
 builder.Services.AddScoped<IManagerService>(provider => ServiceFactory.Create<IManagerService>());
 builder.Services.AddScoped<IHealthCheckService>(provider => ServiceFactory.Create<IHealthCheckService>());
-
+builder.Services.AddScoped<IQuestionService>(provider => ServiceFactory.Create<IQuestionService>());
 
 var app = builder.Build();
 
