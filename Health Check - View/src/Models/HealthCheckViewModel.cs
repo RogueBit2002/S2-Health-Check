@@ -1,4 +1,4 @@
-﻿using HetBetereGroepje.HealthCheck.Domain.High;
+﻿using HetBetereGroepje.HealthCheck.Domain;
 
 namespace HetBetereGroepje.HealthCheck.View.Models
 {

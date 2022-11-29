@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HetBetereGroepje.HealthCheck.Domain.High;
+using HetBetereGroepje.HealthCheck.Domain;
 
 namespace HetBetereGroepje.HealthCheck.ILogic
 {

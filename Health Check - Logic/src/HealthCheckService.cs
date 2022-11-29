@@ -1,4 +1,4 @@
-﻿using HetBetereGroepje.HealthCheck.Domain.High;
+﻿using HetBetereGroepje.HealthCheck.Domain;
 using HetBetereGroepje.HealthCheck.Factory;
 using HetBetereGroepje.HealthCheck.IData;
 using HetBetereGroepje.HealthCheck.ILogic;

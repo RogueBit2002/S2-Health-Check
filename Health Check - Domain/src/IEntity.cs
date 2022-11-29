@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HetBetereGroepje.HealthCheck.Domain.High
+namespace HetBetereGroepje.HealthCheck.Domain
 {
     public interface IEntity
     {

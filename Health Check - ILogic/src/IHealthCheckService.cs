@@ -1,4 +1,4 @@
-﻿using HetBetereGroepje.HealthCheck.Domain.High;
+﻿using HetBetereGroepje.HealthCheck.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

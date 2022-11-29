@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Health Check - IData\Health Check - IData.csproj" />
+    <ProjectReference Include="..\Health Check - ILogic\Health Check - ILogic.csproj" />
+  </ItemGroup>
+
 </Project>

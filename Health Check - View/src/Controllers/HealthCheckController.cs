@@ -1,4 +1,4 @@
-﻿using HetBetereGroepje.HealthCheck.Domain.High;
+﻿using HetBetereGroepje.HealthCheck.Domain;
 using HetBetereGroepje.HealthCheck.ILogic;
 using HetBetereGroepje.HealthCheck.View.Models;
 using Microsoft.AspNetCore.Mvc;

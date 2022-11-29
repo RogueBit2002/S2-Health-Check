@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Health Check - High Domain\Health Check - High Domain.csproj" />
-    <ProjectReference Include="..\Health Check - Low Domain\Health Check - Low Domain.csproj" />
+    <ProjectReference Include="..\Health Check - Domain\Health Check - Domain.csproj" />
   </ItemGroup>
 
 </Project>

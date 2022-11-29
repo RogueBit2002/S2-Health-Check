@@ -1,4 +1,4 @@
-﻿using HetBetereGroepje.HealthCheck.Domain.Low;
+﻿using HetBetereGroepje.HealthCheck.Domain;
 using HetBetereGroepje.HealthCheck.Factory;
 using HetBetereGroepje.HealthCheck.IData;
 using HetBetereGroepje.HealthCheck.Data.Entities;
@@ -34,7 +34,7 @@ namespace HetBetereGroepje.HealthCheck.Data
             connection.Dispose();
         }
 
-        public IManagerLow GetManager(uint id)
+        public IManager GetManager(uint id)
         {
             string query = "SELECT * FROM `manager` WHERE `id`=@id;";
 
@@ -57,7 +57,7 @@ namespace HetBetereGroepje.HealthCheck.Data
             return manager;
         }
 
-        public IManagerLow GetManager(string email)
+        public IManager GetManager(string email)
         {
             string query = "SELECT * FROM `manager` WHERE `email`=@email;";
 

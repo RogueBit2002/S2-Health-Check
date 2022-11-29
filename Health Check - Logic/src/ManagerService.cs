@@ -1,5 +1,5 @@
 ﻿
-using HetBetereGroepje.HealthCheck.Domain.High;
+using HetBetereGroepje.HealthCheck.Domain;
 using HetBetereGroepje.HealthCheck.Factory;
 using HetBetereGroepje.HealthCheck.IData;
 using HetBetereGroepje.HealthCheck.ILogic;
@@ -31,7 +31,7 @@ namespace HetBetereGroepje.HealthCheck.Logic
         public bool TryLogin(string email, string password, out uint id)
         {
             id = 0;
-            Domain.Low.IManagerLow user = dataService.GetManager(email);
+            IManager user = dataService.GetManager(email);
             if (user == null)
                 return false;
 

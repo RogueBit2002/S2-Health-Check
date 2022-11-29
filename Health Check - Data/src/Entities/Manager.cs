@@ -1,4 +1,4 @@
-﻿using HetBetereGroepje.HealthCheck.Domain.Low;
+﻿using HetBetereGroepje.HealthCheck.Domain;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HetBetereGroepje.HealthCheck.Data.Entities
 {
-    internal class Manager : IManagerLow
+    internal class Manager : IManager
     {
         public uint ID { get; set; }
         public string Email { get; set; } = string.Empty;
