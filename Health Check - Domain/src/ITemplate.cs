@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace HetBetereGroepje.HealthCheck.Domain
 {
-    public interface IEntity
+    public interface ITemplate
     {
         public uint ID { get; }
+        public string Name { get; }
+        
+        public IEnumerable<uint> QuestionIDs { get; }
     }
 }

@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace HetBetereGroepje.HealthCheck.Domain
 {
-    public interface IHealthCheck
+    public interface IQuestion
     {
         public uint ID { get; }
-
-        public string Hash { get; }
-
-        public uint OwnerID { get; }
         public uint TemplateID { get; }
-        public string Name { get; }
+        public string Header { get; }
+        public string Description { get; }
+        
     }
 }
