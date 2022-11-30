@@ -9,11 +9,8 @@ namespace HetBetereGroepje.HealthCheck.Domain
     public interface IHealthCheck
     {
         public uint ID { get; }
-
-        public string Hash { get; }
-
-        public uint OwnerID { get; }
-        public uint TemplateID { get; }
-        public string Name { get; }
+        public string Hash { get; set; }
+        public uint OwnerID { get; set; }
+        public string Name { get; set; }
     }
 }

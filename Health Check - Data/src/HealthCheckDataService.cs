@@ -36,18 +36,27 @@ namespace HetBetereGroepje.HealthCheck.Data
 
         public IHealthCheck CreateHealthCheck(uint managerId, string hash, string name)
         {
-            string query = @"INSERT INTO `health_check`(`owner_id`, `hash`, `name`) VALUES
-(@managerId, @hash, @name);";
+            try
+            {
+                string query = @"INSERT INTO `health_check`(`owner_id`, `hash`, `name`) VALUES
+    (@managerId, @hash, @name);";
 
-            MySqlCommand command = new MySqlCommand(query, connection);
+                MySqlCommand command = new MySqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("managerId", managerId);
-            command.Parameters.AddWithValue("hash", hash);
-            command.Parameters.AddWithValue("name", name);
+                command.Parameters.AddWithValue("managerId", managerId);
+                command.Parameters.AddWithValue("hash", hash);
+                command.Parameters.AddWithValue("name", name);
 
-            command.ExecuteNonQuery();
+                command.ExecuteNonQuery();
 
-            return GetHealthCheck((uint)command.LastInsertedId);
+                return GetHealthCheck((uint)command.LastInsertedId);
+
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
         }
 
         public IHealthCheck GetHealthCheck(uint id)
