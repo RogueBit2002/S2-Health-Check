@@ -5,5 +5,20 @@
 
 
 <div>
-    <h1>@Model.healthCheck.Name</h1>
+    <!-- <h1>@Model.healthCheck.Name</h1> -->
+    <form action="/health-check/xxxxxxx/submit" method="Post">
+        <div>
+            <input type="radio" name="question_0" value="1"/>
+            <input type="radio" name="question_0" value="2"/>
+            <input type="radio" name="question_0" value="3"/>
+            <input type="radio" name="question_0" value="4"/>
+        </div>
+        <div>
+            <input type="radio" name="question_1" value="1"/>
+            <input type="radio" name="question_1" value="2"/>
+            <input type="radio" name="question_1" value="3"/>
+            <input type="radio" name="question_1" value="4"/>
+        </div>
+        <input type="submit" />
+    </form>
 </div>

@@ -2,6 +2,7 @@
 using HetBetereGroepje.HealthCheck.ILogic;
 using HetBetereGroepje.HealthCheck.View.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace HetBetereGroepje.HealthCheck.View.Controllers
 {
@@ -13,7 +14,13 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
             healthCheckService = service;
         }
 
-        [Route(AppConstants.Paths.HealthCheck + "/{hash}")]
+        [Route("/health-check/test")]
+        public IActionResult Test()
+        {
+            return View();
+        }
+
+        [Route("/health-check/{hash}")]
         public IActionResult Index(string hash)
         {
             if(string.IsNullOrEmpty(hash))
@@ -40,6 +47,22 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
                 healthCheckService.CreateHealthCheck(ManagerID, collection["name"]);
             
             return Redirect(collection["redirect"]);
+        }
+
+        [Route("/health-check/{hash}/submit")]
+        public IActionResult Submit(string hash, IFormCollection collection)
+        {
+            /*IHealthCheck healthCheck = healthCheckService.GetHealthCheck(hash);
+
+            if (healthCheck == null)
+                return NotFound();*/
+
+            foreach(var item in collection)
+            {
+                Console.Write(item.Value);
+            }
+
+            return Redirect("/home");
         }
     }
 }
