@@ -9,15 +9,14 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
     public class HealthCheckController : AuthController
     {
         private readonly IHealthCheckService healthCheckService;
-        public HealthCheckController(IHealthCheckService service)
-        {
-            healthCheckService = service;
-        }
+        private readonly IQuestionService questionService;
+        private readonly IResponseService responseService;
 
-        [Route("/health-check/test")]
-        public IActionResult Test()
+        public HealthCheckController(IHealthCheckService healthCheckService, IQuestionService questionService, IResponseService responseService)
         {
-            return View();
+            this.healthCheckService = healthCheckService;
+            this.questionService = questionService;
+            this.responseService = responseService;
         }
 
         [Route("/health-check/{hash}")]
@@ -34,8 +33,9 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
             if (healthCheck == null)
                 return NotFound();
 
+            IEnumerable<IQuestion> questions = questionService.GetQuestionsByTemplate(healthCheck.TemplateID);
 
-            HealthCheckViewModel model = new HealthCheckViewModel(healthCheck);
+            HealthCheckViewModel model = new HealthCheckViewModel(healthCheck, questions);
 
             return View(model);
         }
@@ -52,17 +52,28 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
         [Route("/health-check/{hash}/submit")]
         public IActionResult Submit(string hash, IFormCollection collection)
         {
-            /*IHealthCheck healthCheck = healthCheckService.GetHealthCheck(hash);
+            IHealthCheck healthCheck = healthCheckService.GetHealthCheck(hash);
 
             if (healthCheck == null)
-                return NotFound();*/
+                return NotFound();
 
+            string email = collection.ContainsKey("email") ? collection["email"] : string.Empty;
+
+            Dictionary<uint, int> answers = new Dictionary<uint, int>();
             foreach(var item in collection)
             {
-                Console.Write(item.Value);
+                if (!uint.TryParse(item.Key, out uint answerId))
+                    continue;
+
+                if (!int.TryParse(item.Value, out int value))
+                    continue;
+
+                answers.Add(answerId, value);
             }
 
-            return Redirect("/home");
+            responseService.CreateResponse(healthCheck.ID, email, answers);
+
+            return View();
         }
     }
 }

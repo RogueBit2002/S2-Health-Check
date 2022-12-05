@@ -12,6 +12,8 @@ builder.Services.AddSession();
 builder.Services.AddScoped<IManagerService>(provider => ServiceFactory.Create<IManagerService>());
 builder.Services.AddScoped<IHealthCheckService>(provider => ServiceFactory.Create<IHealthCheckService>());
 builder.Services.AddScoped<IResponseService>(provider => ServiceFactory.Create<IResponseService>());
+builder.Services.AddScoped<ITemplateService>(provider => ServiceFactory.Create<ITemplateService>());
+builder.Services.AddScoped<IQuestionService>(provider => ServiceFactory.Create<IQuestionService>());
 
 
 var app = builder.Build();

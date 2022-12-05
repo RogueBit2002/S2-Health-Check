@@ -32,7 +32,7 @@ namespace HetBetereGroepje.HealthCheck.Data.Entities
         public static Question GetQuestion(this MySqlDataReader reader)
         {
             uint id = reader.GetUInt32("id");
-            uint templateId = reader.GetUInt32("templateId");
+            uint templateId = reader.GetUInt32("template_id");
             string header = reader.GetString("header");
             string description = reader.GetString("description");
 

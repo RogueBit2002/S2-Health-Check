@@ -1,24 +1,34 @@
-﻿@model HealthCheckViewModel; 
+﻿@using HetBetereGroepje.HealthCheck.Domain;
+@model HealthCheckViewModel; 
 @{
     ViewData["Title"] = "Health Check";
 }
 
 
 <div>
-    <!-- <h1>@Model.healthCheck.Name</h1> -->
-    <form action="/health-check/xxxxxxx/submit" method="Post">
-        <div>
-            <input type="radio" name="question_0" value="1"/>
-            <input type="radio" name="question_0" value="2"/>
-            <input type="radio" name="question_0" value="3"/>
-            <input type="radio" name="question_0" value="4"/>
-        </div>
-        <div>
-            <input type="radio" name="question_1" value="1"/>
-            <input type="radio" name="question_1" value="2"/>
-            <input type="radio" name="question_1" value="3"/>
-            <input type="radio" name="question_1" value="4"/>
-        </div>
+    <h1>@Model.healthCheck.Name</h1>
+    <br />
+    <br />
+    <form action="/health-check/@Model.healthCheck.Hash/submit" method="Post">
+        <label>Email (optional):</label>
+        <input type="text" name="email"/>
+        @foreach(IQuestion question in Model.questions)
+        {
+            <div>
+                <div>
+                    <h3>@question.Header</h3>
+                    <p>@question.Description</p>
+                </div>
+                <div>
+                    <input type="radio" name="@question.ID" value="1" required />
+                    <input type="radio" name="@question.ID" value="2" required />
+                    <input type="radio" name="@question.ID" value="3" required />
+                    <input type="radio" name="@question.ID" value="4" required />
+                    <input type="radio" name="@question.ID" value="5" required />
+                </div>
+            </div>
+            
+        }
         <input type="submit" />
     </form>
 </div>

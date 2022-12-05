@@ -1,5 +1,6 @@
 ﻿using HetBetereGroepje.HealthCheck.Data.Entities;
 using HetBetereGroepje.HealthCheck.Domain;
+using HetBetereGroepje.HealthCheck.Factory;
 using HetBetereGroepje.HealthCheck.IData;
 using MySqlConnector;
 using System;
@@ -13,6 +14,11 @@ namespace HetBetereGroepje.HealthCheck.Data.src
 {
     public class ResponseDataService : IResponseDataService
     {
+        [ServiceFactory]
+        private static IResponseDataService CreateService()
+        {
+            return new ResponseDataService();
+        }
 
         private MySqlConnection connection;
 
@@ -32,6 +38,18 @@ namespace HetBetereGroepje.HealthCheck.Data.src
 
             command.ExecuteNonQuery();
 
+            uint responseId = (uint)command.LastInsertedId;
+
+            foreach(uint key in answers.Keys)
+            {
+                MySqlCommand cmd = new MySqlCommand("INSERT INTO `answer`(`response_id`,`question_id`,`value`) VALUES(@responseId, @questionId, @value);", connection);
+                cmd.Parameters.AddWithValue("responseId", responseId);
+                cmd.Parameters.AddWithValue("questionId", key);
+                cmd.Parameters.AddWithValue("value", answers[key]);
+
+                cmd.ExecuteNonQuery();
+
+            }
             return GetResponse((uint) command.LastInsertedId);
         }
 
