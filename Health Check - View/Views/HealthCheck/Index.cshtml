@@ -13,12 +13,14 @@
     <form action="/health-check/@Model.healthCheck.Hash/submit" method="Post">
         <label>Email (optional):</label>
         <input type="text" name="email"/>
+        <br />
+        <br />
+        <h3>Questions</h3>
         @foreach(IQuestion question in Model.questions)
         {
             <div>
                 <div>
-                    <h3>@question.Header</h3>
-                    <p>@question.Description</p>
+                    <p><strong>@question.Header</strong><br/>@question.Description</p>
                 </div>
                 <div>
                     <input type="radio" name="@question.ID" value="1" required />
@@ -27,6 +29,7 @@
                     <input type="radio" name="@question.ID" value="4" required />
                     <input type="radio" name="@question.ID" value="5" required />
                 </div>
+                <br />
             </div>
             
         }
