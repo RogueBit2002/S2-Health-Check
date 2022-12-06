@@ -11,12 +11,14 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
         private readonly IHealthCheckService healthCheckService;
         private readonly IQuestionService questionService;
         private readonly IResponseService responseService;
+        private readonly ITemplateService templateService;
 
-        public HealthCheckController(IHealthCheckService healthCheckService, IQuestionService questionService, IResponseService responseService)
+        public HealthCheckController(IHealthCheckService healthCheckService, IQuestionService questionService, IResponseService responseService, ITemplateService templateService)
         {
             this.healthCheckService = healthCheckService;
             this.questionService = questionService;
             this.responseService = responseService;
+            this.templateService = templateService;
         }
 
         [Route("/health-check/{hash}")]
@@ -38,15 +40,6 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
             HealthCheckViewModel model = new HealthCheckViewModel(healthCheck, questions);
 
             return View(model);
-        }
-
-        [Route("/health-check/create")]
-        public IActionResult Create(IFormCollection collection)
-        {
-            if (IsLoggedIn)
-                healthCheckService.CreateHealthCheck(ManagerID, collection["name"]);
-            
-            return Redirect(collection["redirect"]);
         }
 
         [Route("/health-check/{hash}/submit")]
@@ -74,6 +67,31 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
             responseService.CreateResponse(healthCheck.ID, email, answers);
 
             return View();
+        }
+
+        [Route("/health-check/create")]
+        public IActionResult Create()
+        {
+            if (!IsLoggedIn)
+                return RedirectToLoginPage();
+
+            IEnumerable<ITemplate> templates = templateService.GetTemplates();
+
+            return View("Create", templates);
+        }
+
+
+        [Route("/health-check/create/submit")]
+        public IActionResult CreateSubmit(IFormCollection formCollection)
+        {
+            if (!IsLoggedIn)
+                return RedirectToLoginPage();
+
+            string name = formCollection["name"];
+            uint templateId = uint.Parse(formCollection["template"]);
+
+            healthCheckService.CreateHealthCheck(ManagerID, templateId, name);
+            return Redirect("/home");
         }
     }
 }

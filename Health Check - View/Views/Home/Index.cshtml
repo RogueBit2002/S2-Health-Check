@@ -2,18 +2,13 @@
 @model HomeViewModel
 
 <div>
+	
+	<h3>Your health checks</h3>
+	<a href="/health-check/create">Create a new health check</a>
+	<br />
+	<br />
 	@foreach(IHealthCheck healthCheck in @Model.healthChecks)
 	{
 		<a href="@AppConstants.Paths.HealthCheck/@healthCheck.Hash">@healthCheck.Name</a><br />
 	}
 </div>
-<br />
-<br />
-<form asp-controller="HealthCheck" asp-action="Create">
-    <label>Name</label>
-    <br />
-    <input type="text" asp-for="name" />
-    <br />
-    <input type="hidden" asp-for="redirect" value="@Model.absoluteUri"/>
-    <input type="submit" value="Create"/>
-</form>

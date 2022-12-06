@@ -1,0 +1,15 @@
+﻿@using HetBetereGroepje.HealthCheck.Domain
+@model IEnumerable<ITemplate>; 
+
+<div>
+    <form action="/health-check/create/submit" method="Post">
+        <input type="text" name="name" required />
+        <select name="template" required>
+            @foreach(ITemplate template in Model)
+            {
+                <option value="@template.ID">@template.Name</option>
+            }
+        </select>
+        <input type="submit" />
+    </form>
+</div>

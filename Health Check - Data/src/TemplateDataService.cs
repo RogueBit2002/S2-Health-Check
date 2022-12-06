@@ -43,7 +43,6 @@ namespace HetBetereGroepje.HealthCheck.Data
         {
             string query = "SELECT * FROM `template` WHERE `id`=@id;";
 
-
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("id", id);
 
@@ -60,6 +59,24 @@ namespace HetBetereGroepje.HealthCheck.Data
             reader.Close();
 
             return template;
+        }
+
+        public IEnumerable<ITemplate> GetTemplates()
+        {
+            string query = "SELECT * FROM `template`;";
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            List<ITemplate> templates = new List<ITemplate>();
+
+            while (reader.Read())
+                templates.Add(reader.GetTemplate());
+
+            reader.Close();
+
+            return templates.AsReadOnly();
         }
     }
 }

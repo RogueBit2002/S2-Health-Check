@@ -26,10 +26,11 @@ namespace HetBetereGroepje.HealthCheck.Logic
             this.dataService = dataService;
         }
 
-        public IHealthCheck CreateHealthCheck(uint ownerId, string name)
+        public IHealthCheck CreateHealthCheck(uint ownerId, uint templateId, string name)
         {
             return dataService.CreateHealthCheck(
                 ownerId,
+                templateId,
                 Guid.NewGuid().ToString("N"),
                 name);
         }

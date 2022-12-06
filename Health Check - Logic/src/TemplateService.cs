@@ -36,6 +36,8 @@ namespace HetBetereGroepje.HealthCheck.Logic
 
         public ITemplate GetTemplate(uint id) => templateDataService.GetTemplate(id);
 
+        public IEnumerable<ITemplate> GetTemplates() => templateDataService.GetTemplates();
+
         
     }
 }

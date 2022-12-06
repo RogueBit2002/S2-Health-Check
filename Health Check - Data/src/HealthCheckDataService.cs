@@ -34,14 +34,15 @@ namespace HetBetereGroepje.HealthCheck.Data
         }
 
 
-        public IHealthCheck CreateHealthCheck(uint managerId, string hash, string name)
+        public IHealthCheck CreateHealthCheck(uint managerId, uint templateId, string hash, string name)
         {
-            string query = @"INSERT INTO `health_check`(`owner_id`, `hash`, `name`) VALUES
-(@managerId, @hash, @name);";
+            string query = @"INSERT INTO `health_check`(`owner_id`,`template_id`, `hash`, `name`) VALUES
+(@owner_id, @templateId, @hash, @name);";
 
             MySqlCommand command = new MySqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("managerId", managerId);
+            command.Parameters.AddWithValue("owner_id", managerId);
+            command.Parameters.AddWithValue("templateId", templateId);
             command.Parameters.AddWithValue("hash", hash);
             command.Parameters.AddWithValue("name", name);
 

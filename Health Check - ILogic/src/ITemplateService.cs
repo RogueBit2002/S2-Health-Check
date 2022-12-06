@@ -11,5 +11,7 @@ namespace HetBetereGroepje.HealthCheck.ILogic
     {
         public ITemplate CreateTemplate(string name);
         public ITemplate GetTemplate(uint id);
+        public IEnumerable<ITemplate> GetTemplates();
+        
     }
 }
