@@ -33,7 +33,8 @@ namespace HetBetereGroepje.HealthCheck.Data
             //database = "lauren_healthcheck";
             string cs = $"server={host};userid={username};password={password};database={database}";
 
-            //return "Server=studmysql01.fhict.local;Uid=dbi469729;Database=dbi469729;Pwd=test";
+
+            return "Server=studmysql01.fhict.local;Uid=dbi469729;Database=dbi469729;Pwd=test";
             return cs;
         }
     }

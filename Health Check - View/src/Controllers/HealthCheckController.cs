@@ -93,5 +93,22 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
             healthCheckService.CreateHealthCheck(ManagerID, templateId, name);
             return Redirect("/home");
         }
+
+
+        [Route("/health-check/{hash}/result")]
+        public IActionResult Result(string hash)
+        {
+            if (!IsLoggedIn)
+                return RedirectToLoginPage();
+
+            IHealthCheck healthCheck = healthCheckService.GetHealthCheck(hash);
+
+            if (healthCheck == null)
+                return NotFound();
+
+            IEnumerable<IResponse> responses = responseService.GetAllResponses(healthCheck.ID);
+
+            return View("Result", (healthCheck, responses));
+        }
     }
 }
