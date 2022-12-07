@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HetBetereGroepje.HealthCheck.ILogic
 {
-    public interface IResponseService 
+    public interface IResponseService: IDisposable
     {
         public IResponse CreateResponse(uint healthCheckId, string email, IReadOnlyDictionary<uint, int> answers);
         public IResponse GetResponse(uint id);

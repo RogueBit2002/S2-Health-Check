@@ -27,6 +27,13 @@ namespace HetBetereGroepje.HealthCheck.Data.src
             connection = DatabaseConnectionFactory.CreateConnection();
         }
 
+        public void Dispose()
+        {
+            connection.Close();
+            connection.Dispose();
+        }
+
+
         public IResponse CreateResponse(uint healthCheckId, string email, IReadOnlyDictionary<uint, int> answers)
         {
             string query = @"INSERT INTO `response`(`health_check_id`, `email`) VALUES (@healthCheckId, @email);";

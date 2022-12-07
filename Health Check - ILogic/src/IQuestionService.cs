@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HetBetereGroepje.HealthCheck.ILogic
 {
-    public interface IQuestionService
+    public interface IQuestionService: IDisposable
     {
         public IQuestion CreateQuestion(uint templateId, string header, string description);
 

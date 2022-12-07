@@ -24,6 +24,12 @@ namespace HetBetereGroepje.HealthCheck.Data
         {
             connection = DatabaseConnectionFactory.CreateConnection();
         }
+
+        public void Dispose()
+        {
+            connection.Close();
+            connection.Dispose();
+        }
         public IQuestion CreateQuestion(uint templateId, string header, string description)
         {
             string query = @"INSERT INTO `question`(`template_id`, `header`, `description`) VALUES
