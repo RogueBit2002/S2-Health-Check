@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HetBetereGroepje.HealthCheck.IData
 {
-    public interface ITemplateDataService
+    public interface ITemplateDataService : IDisposable
     {
         public ITemplate CreateTemplate(string name);
         public ITemplate GetTemplate(uint id);

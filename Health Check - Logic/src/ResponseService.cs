@@ -18,6 +18,7 @@ namespace HetBetereGroepje.HealthCheck.Logic
         {
             return new ResponseService(ServiceFactory.Create<IResponseDataService>());
         }
+
         public IResponse CreateResponse(uint healthCheckId, string email, IReadOnlyDictionary<uint, int> answers)
         {
             return responseDataService.CreateResponse(healthCheckId, email, answers);
@@ -38,6 +39,12 @@ namespace HetBetereGroepje.HealthCheck.Logic
         public ResponseService(IResponseDataService responseDataService)
         {
             this.responseDataService = responseDataService;
+        }
+
+
+        public void Dispose()
+        {
+            responseDataService.Dispose();
         }
     }
 }
