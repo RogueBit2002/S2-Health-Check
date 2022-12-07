@@ -74,11 +74,6 @@ namespace HetBetereGroepje.HealthCheck.Data.src
 
             MySqlDataReader reader = command.ExecuteReader();
 
-            if (!reader.Read())
-            {
-                reader.Close();
-                return null;
-            }
 
             Response response = reader.GetResponse();
 
