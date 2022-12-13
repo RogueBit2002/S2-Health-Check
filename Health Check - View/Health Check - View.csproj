@@ -1,19 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>HetBetereGroepje.HealthCheck.View</RootNamespace>
+    <UserSecretsId>aspnet-Health_Check___View-7479B3B2-EAA1-4089-BB58-D2F298221464</UserSecretsId>
+    <RootNamespace>Health_Check___View</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Health Check - Data\Health Check - Data.csproj" />
-    <ProjectReference Include="..\Health Check - Factory\Health Check - Factory.csproj" />
-    <ProjectReference Include="..\Health Check - Domain\Health Check - Domain.csproj" />
-    <ProjectReference Include="..\Health Check - IData\Health Check - IData.csproj" />
-    <ProjectReference Include="..\Health Check - ILogic\Health Check - ILogic.csproj" />
-    <ProjectReference Include="..\Health Check - Logic\Health Check - Logic.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.8" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.24.1" />
+    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="1.24.1" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.16.0" />
   </ItemGroup>
 
 </Project>
