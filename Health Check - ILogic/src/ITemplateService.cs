@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HetBetereGroepje.HealthCheck.ILogic
 {
-    public interface ITemplateService
+    public interface ITemplateService : IDisposable
     {
         public ITemplate CreateTemplate(string name);
         public ITemplate GetTemplate(uint id);

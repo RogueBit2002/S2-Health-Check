@@ -22,6 +22,11 @@ namespace HetBetereGroepje.HealthCheck.Logic
             this.dataService = dataService;
         }
 
+        public void Dispose()
+        {
+            dataService.Dispose();
+        }
+
 
         public IManager GetManager(uint id) => dataService.GetManager(id);
 

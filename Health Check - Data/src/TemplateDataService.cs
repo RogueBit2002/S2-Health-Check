@@ -25,6 +25,11 @@ namespace HetBetereGroepje.HealthCheck.Data
             connection = DatabaseConnectionFactory.CreateConnection();
         }
 
+        public void Dispose()
+        {
+            connection.Close();
+            connection.Dispose();
+        }
 
         public ITemplate CreateTemplate(string name)
         {

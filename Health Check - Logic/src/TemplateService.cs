@@ -25,6 +25,10 @@ namespace HetBetereGroepje.HealthCheck.Logic
             this.templateDataService = templateDataService;
         }
 
+        public void Dispose()
+        {
+            templateDataService.Dispose();
+        }
 
         public ITemplate CreateTemplate(string name)
         {
