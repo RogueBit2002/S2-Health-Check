@@ -70,19 +70,7 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
         }
 
         [Route("/health-check/create")]
-        public IActionResult Create()
-        {
-            if (!IsLoggedIn)
-                return RedirectToLoginPage();
-
-            IEnumerable<ITemplate> templates = templateService.GetTemplates();
-
-            return View("Create", templates);
-        }
-
-
-        [Route("/health-check/create/submit")]
-        public IActionResult CreateSubmit(IFormCollection formCollection)
+        public IActionResult Create(IFormCollection formCollection)
         {
             if (!IsLoggedIn)
                 return RedirectToLoginPage();

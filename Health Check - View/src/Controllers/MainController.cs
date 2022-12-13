@@ -9,7 +9,7 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
         [Route("/")]
         public IActionResult Index()
         {
-            return Redirect(AppConstants.Paths.Home);
+            return Redirect("/home");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

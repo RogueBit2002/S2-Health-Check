@@ -1,0 +1,124 @@
+﻿body {
+}
+
+h3{
+    color: white;
+}
+
+.tabletest{
+    background-color: white;
+    margin-top: 50px;
+    border: 1px solid black;
+}
+
+.yellowtop {
+    background-color: black !important;
+    color: #fff000;
+    height: 30px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 30px;
+
+}
+
+.tableinsides {
+    text-decoration: none;
+    height: 60px;
+    font-size: 30px;
+    text-decoration: none !important;
+    background-color: lightgray;
+    text-align: left;
+    color: black;
+    top: 10px !important;
+    
+}
+
+.resultboard{
+    font-size: 80px;
+    text-decoration: none !important;
+    cursor:pointer;
+}
+
+
+.button {
+    height: 100px;
+    max-width: 100%;
+    background-color: #fff000;
+    text-align: center;
+    font-size: 50px;
+    border-right: 20px solid #807700;
+    border-bottom: 20px solid #fff899;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    border-radius: 20px;
+    color: black;
+    text-decoration: none;
+    transition: 0.3s;
+    width: 1400px;
+}
+
+    .button:hover {
+        transform: scale(0.97);
+        border-radius: 25px !important;
+    }
+
+a {
+    text-decoration: none;
+    color: darkslategray;
+    transition: 0.3s;
+}
+
+.tabletest a {
+    border: 2px solid black;
+    border-radius: 30px;
+    padding: 1px;
+    display: block;
+    padding-left: 10px;
+    height: 80px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: rgba(102, 102, 102,0.3);
+    vertical-align: middle
+}
+
+    .tabletest a:hover {
+        transform: scale(1.03);
+        color: black;
+        display: block;
+    }
+
+
+.textblock{
+    width: 95px;
+    font-size: 50px;
+}
+
+h1{
+    color: white;
+    margin-bottom: 100px;
+}
+
+.modalcss{
+    background-color: #232323;
+    height: 300px;
+}
+
+.modalnavbar{
+    background-color: #fff000;
+    border: none !important;
+}
+
+.modalbackground {
+    background: rgba(128,128,128, 0.6);
+    margin-top: 100px;
+    
+}
+
+.modalfooter{
+    background-color: #fff000;
+    border: none !important;
+}
+
+.closebutton{
+    border-radius: 50px;
+}
