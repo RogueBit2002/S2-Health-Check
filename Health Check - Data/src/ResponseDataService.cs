@@ -57,6 +57,7 @@ namespace HetBetereGroepje.HealthCheck.Data.src
                 cmd.ExecuteNonQuery();
 
             }
+
             return GetResponse((uint) command.LastInsertedId);
         }
 

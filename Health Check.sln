@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Health Check - Data", "Heal
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Health Check - Domain", "Health Check - Domain\Health Check - Domain.csproj", "{A28AE0AA-46BD-49A2-BC22-4BB3AD469AC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health Check - View", "Health Check - View\Health Check - View.csproj", "{78ED62B2-A409-4FFC-A95C-A114DE78DA65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Health Check - View", "Health Check - View\Health Check - View.csproj", "{78ED62B2-A409-4FFC-A95C-A114DE78DA65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
