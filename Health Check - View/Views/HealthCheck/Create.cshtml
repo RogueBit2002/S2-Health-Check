@@ -1,0 +1,19 @@
+﻿@using HetBetereGroepje.HealthCheck.Domain
+@model IEnumerable<ITemplate>; 
+
+<link rel="stylesheet" href="~/css/CreateHealthCheck.css" asp-append-version="true" />
+
+<div>
+    <form action="/health-check/create" method="Post">
+        <input type="text" name="name" required />
+        <select name="template" required>
+            @foreach(ITemplate template in Model)
+            {
+                <option value="@template.ID">@template.Name</option>
+            }
+        </select>
+        <input type="submit" />
+    </form>
+</div>
+
+

@@ -1,0 +1,20 @@
+﻿using HetBetereGroepje.HealthCheck.Domain;
+
+namespace HetBetereGroepje.HealthCheck.View.Models
+{
+    public class HomeViewModel
+    {
+        public string absoluteUri;
+        public string redirect;
+        public string name;
+        public IEnumerable<IHealthCheck> healthChecks;
+        public uint FilledIn;
+
+        public HomeViewModel(string absoluteUri, IEnumerable<IHealthCheck> healthChecks, uint filledIn)
+        {
+            this.absoluteUri = absoluteUri;
+            this.healthChecks = healthChecks;
+            this.FilledIn = filledIn;
+        }
+    }
+}
