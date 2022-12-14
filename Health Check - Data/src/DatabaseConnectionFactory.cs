@@ -21,21 +21,7 @@ namespace HetBetereGroepje.HealthCheck.Data
 
         private static string GetConnectionString()
         {
-            //TODO: Should read this from a file
-            string host = "localhost";
-            string username = "rhc_admin";
-            string password = "r00t";
-            string database = "rockstars_health_check";
-
-            //host = "lauren-healthcheck.db.transip.me";
-            //username = "lauren_hcadmin";
-            //password = "r00tpass";
-            //database = "lauren_healthcheck";
-            string cs = $"server={host};userid={username};password={password};database={database}";
-
-
-            //return "Server=studmysql01.fhict.local;Uid=dbi469729;Database=dbi469729;Pwd=test";
-            return cs;
+            return "Server=studmysql01.fhict.local;Uid=dbi469729;Database=dbi469729;Pwd=test";
         }
     }
 }

@@ -14,6 +14,11 @@
     <ProjectReference Include="..\Health Check - IData\Health Check - IData.csproj" />
     <ProjectReference Include="..\Health Check - ILogic\Health Check - ILogic.csproj" />
     <ProjectReference Include="..\Health Check - Logic\Health Check - Logic.csproj" />
+    
+    
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+  </ItemGroup>
 </Project>

@@ -1,5 +1,140 @@
 ﻿@using HetBetereGroepje.HealthCheck.Domain
-@model (IHealthCheck healthCheck, IEnumerable<IResponse> responses)
+@using Newtonsoft.Json
+@model (IHealthCheck healthCheck, IEnumerable<IResponse> responses, IEnumerable<IQuestion> questions)
 @{
-    
+    /* 
+        string data()
+        {
+        string dataReturn = "";
+        List<IResponse> responsesList = Model.responses.ToList();
+
+        List<double> answerCollection = new List<double> { 0, 0, 0 };
+
+        for (int i = 0; i < responsesList.Count(); i++ )
+            {
+            for (int j = 0; j < responsesList[i].Answers.Count(); j++)
+                {
+                answerCollection[j] += responsesList[i].Answers.ToList()[j].Value;
+        }
+        }
+
+        for (int k = 0; k < answerCollection.Count(); k++)
+            {
+            answerCollection[k] = answerCollection[k] / responsesList.Count();
+        }
+
+        foreach (var average in answerCollection)
+            {
+            dataReturn += average.ToString() + ", ";
+        }
+
+        return dataReturn.Remove(dataReturn.Length - 2, 2);
+
+    }
+
+
+    IEnumerable<string> labels()
+        {
+        return new List<string> {"Dit is 1", "Dit is 2", "Dit is 3"};
+    }
+    */
+
 }
+
+<div class="container bg-light">
+    <div class="col text-center">
+
+        <h1>@ViewData["Title"]</h1>
+
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const ctx = document.getElementById('myChart');
+            
+            let questions = @Html.Raw(JsonConvert.SerializeObject(
+                    Model.questions,
+                    Formatting.None,
+                    new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                    }
+                ));
+
+            let responses = @Html.Raw(@JsonConvert.SerializeObject(
+                    Model.responses, 
+                    Formatting.None,
+                    new JsonSerializerSettings
+                    {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    }
+                ));
+
+            let answersArray = [];
+            let amountOfAnswers = responses[0].Answers.length;
+            let amountOfResponses = responses.length;
+
+            for(let i = 0; i < amountOfAnswers; i++) {
+                answersArray[i] = 0;
+            }
+
+            for(let i = 0; i < responses.length; i++) 
+            {
+                for (let j = 0; j < responses[i].Answers.length; j++) 
+                {
+                    answersArray[j] += responses[i].Answers[j].Value;
+                }
+            }
+
+            let averageArray = [];
+
+            for(let i = 0; i < amountOfAnswers; i++) 
+            {
+                averageArray[i] = answersArray[i] / amountOfResponses;
+            }
+
+            questions = questions.sort((q) => q.ID);
+            
+            for(let i = 0; i < responses.length; i ++)
+            {
+                responses[i].Answers = responses[i].Answers.sort((a) => a.QuestionID);
+            }
+            /*
+            const config = {
+                type: 'radar',
+                data: data,
+                options: {
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    }
+                },
+            };*/
+
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: questions.map(q => q.Header),
+                    datasets: [{
+                        label: 'Your Score',
+                        data: averageArray,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scale: {
+                        beginAtZero: true,
+                        min: 0,
+                        stepSize: 1,
+                        max: 5
+                    }
+                }
+            });
+
+            
+        </script>
+    </div>
+</div>

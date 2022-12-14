@@ -15,7 +15,6 @@ builder.Services.AddScoped<IResponseService>(provider => ServiceFactory.Create<I
 builder.Services.AddScoped<ITemplateService>(provider => ServiceFactory.Create<ITemplateService>());
 builder.Services.AddScoped<IQuestionService>(provider => ServiceFactory.Create<IQuestionService>());
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

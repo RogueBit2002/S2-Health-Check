@@ -95,11 +95,13 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
         }
 
 
+
+
         [Route("/health-check/{hash}/result")]
         public IActionResult Result(string hash)
         {
-            if (!IsLoggedIn)
-                return RedirectToLoginPage();
+            /*if (!IsLoggedIn)
+                return RedirectToLoginPage();*/
 
             IHealthCheck healthCheck = healthCheckService.GetHealthCheck(hash);
 
@@ -107,8 +109,9 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
                 return NotFound();
 
             IEnumerable<IResponse> responses = responseService.GetAllResponses(healthCheck.ID);
+            IEnumerable<IQuestion> questions = questionService.GetQuestionsByTemplate(healthCheck.TemplateID);
 
-            return View("Result", (healthCheck, responses));
+            return View("Result", (healthCheck, responses, questions));
         }
     }
 }
