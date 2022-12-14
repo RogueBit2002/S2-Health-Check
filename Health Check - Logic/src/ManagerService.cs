@@ -45,9 +45,5 @@ namespace HetBetereGroepje.HealthCheck.Logic
         }
 
 
-        public void Dispose()
-        {
-            dataService.Dispose();
-        }
     }
 }
