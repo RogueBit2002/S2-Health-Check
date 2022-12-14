@@ -63,7 +63,27 @@ namespace HetBetereGroepje.HealthCheck.Data.src
 
         public IEnumerable<IResponse> GetAllResponses(uint healthCheckId)
         {
-            throw new NotImplementedException();
+            string query = "SELECT * FROM `response` WHERE `health_check_id`=@healthCheckId;";
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@healthCheckId", healthCheckId);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            List<Response> responses = new List<Response>();
+
+            while (reader.Read())
+            {
+                responses.Add(reader.GetResponse());
+            }
+            
+            reader.Close();
+            foreach (var response in responses)
+            {
+                response.Answers = GetAnwersByResponse(response);
+
+            }
+            return responses.AsReadOnly();
         }
 
         public IResponse GetResponse(uint id)
@@ -97,6 +117,7 @@ namespace HetBetereGroepje.HealthCheck.Data.src
             List<Answer> answers = new List<Answer>();
             while (reader.Read())
                 answers.Add(reader.GetAnswer());
+            reader.Close();
 
             answers.ForEach(a => a.Response = response);
             return answers.AsReadOnly();

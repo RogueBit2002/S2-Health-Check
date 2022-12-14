@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Health Check - Data\Health Check - Data.csproj" />
+    <ProjectReference Include="..\Health Check - Factory\Health Check - Factory.csproj" />
+    <ProjectReference Include="..\Health Check - Domain\Health Check - Domain.csproj" />
+    <ProjectReference Include="..\Health Check - IData\Health Check - IData.csproj" />
+    <ProjectReference Include="..\Health Check - ILogic\Health Check - ILogic.csproj" />
+    <ProjectReference Include="..\Health Check - Logic\Health Check - Logic.csproj" />
+    
+    
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.8" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.24.1" />
@@ -17,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\Models\" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
-
 </Project>

@@ -27,7 +27,6 @@ namespace HetBetereGroepje.HealthCheck.Logic
             dataService.Dispose();
         }
 
-
         public IManager GetManager(uint id) => dataService.GetManager(id);
 
         public IManager GetManager(string email) => dataService.GetManager(email);
@@ -43,7 +42,5 @@ namespace HetBetereGroepje.HealthCheck.Logic
             id = user.ID;
             return user.Password == Cryptography.Hash(password);
         }
-
-
     }
 }
