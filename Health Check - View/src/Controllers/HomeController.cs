@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+﻿using HetBetereGroepje.HealthCheck.Domain;
+using HetBetereGroepje.HealthCheck.ILogic;
+using HetBetereGroepje.HealthCheck.View.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HetBetereGroepje.HealthCheck.View.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : AuthController
     {
         private readonly IHealthCheckService healthCheckService;
         private readonly ITemplateService templateService;
@@ -16,12 +18,18 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
         [Route(AppConstants.Paths.Home)]
         public IActionResult Index()
         {
-            ManagerID = 1;
+
             //if (!IsLoggedIn)
-                //return RedirectToLoginPage();
+            //return RedirectToLoginPage();
 
+            /*
+            HttpContext.GetOwinContext().Authentication.Challenge(
+            new AuthenticationProperties { RedirectUri = "/" },
+            OpenIdConnectAuthenticationDefaults.AuthenticationType);*/
 
-            IEnumerable<IHealthCheck> healthChecks = healthCheckService.GetHealthChecksByManager(ManagerID);
+            //HttpContext.GetOwinContext();
+
+            IEnumerable<IHealthCheck> healthChecks = healthCheckService.GetHealthChecksByTenant(TenantID);
 
 
             return View((new HomeViewModel(

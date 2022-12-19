@@ -1,3 +1,5 @@
+using HetBetereGroepje.HealthCheck.Factory;
+using HetBetereGroepje.HealthCheck.ILogic;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
@@ -23,6 +25,15 @@ builder.Services.AddAuthorization(options =>
 });
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
+
+
+ServiceFactory.Init();
+
+builder.Services.AddScoped<IHealthCheckService>(provider => ServiceFactory.Create<IHealthCheckService>());
+builder.Services.AddScoped<IResponseService>(provider => ServiceFactory.Create<IResponseService>());
+builder.Services.AddScoped<ITemplateService>(provider => ServiceFactory.Create<ITemplateService>());
+builder.Services.AddScoped<IQuestionService>(provider => ServiceFactory.Create<IQuestionService>());
+
 
 var app = builder.Build();
 

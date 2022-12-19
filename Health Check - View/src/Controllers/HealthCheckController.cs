@@ -72,17 +72,15 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
         [Route("/health-check/create")]
         public IActionResult Create(IFormCollection formCollection)
         {
-            if (!IsLoggedIn)
-                return RedirectToLoginPage();
+            /*if (!IsLoggedIn)
+                return RedirectToLoginPage();*/
 
             string name = formCollection["name"];
             uint templateId = uint.Parse(formCollection["template"]);
 
-            healthCheckService.CreateHealthCheck(ManagerID, templateId, name);
+            healthCheckService.CreateHealthCheck(TenantID, templateId, name);
             return Redirect("/home");
         }
-
-
 
 
         [Route("/health-check/{hash}/result")]

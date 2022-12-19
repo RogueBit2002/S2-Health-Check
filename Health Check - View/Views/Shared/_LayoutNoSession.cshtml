@@ -10,12 +10,13 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 navbarcolor">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbarimage" asp-controller="Home" asp-action="Index">
-                    <img src="~/Images/logo.png" alt="" class="d-inline-block align-text-top image">
-                </a>
-                <a class="size logout">Logout</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Health Check</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
         </nav>
     </header>
@@ -25,9 +26,9 @@
         </main>
     </div>
 
-    <footer class="footer text-muted borderfoot">
+    <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - Health Check - <a href="https://www.teamrockstars.nl/">Privacy<a>
+            &copy; 2022 - Health_Check___View - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

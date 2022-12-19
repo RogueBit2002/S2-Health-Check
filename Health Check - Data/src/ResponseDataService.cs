@@ -76,13 +76,14 @@ namespace HetBetereGroepje.HealthCheck.Data.src
             {
                 responses.Add(reader.GetResponse());
             }
-            
+
             reader.Close();
             foreach (var response in responses)
             {
                 response.Answers = GetAnwersByResponse(response);
 
             }
+
             return responses.AsReadOnly();
         }
 
@@ -117,7 +118,6 @@ namespace HetBetereGroepje.HealthCheck.Data.src
             List<Answer> answers = new List<Answer>();
             while (reader.Read())
                 answers.Add(reader.GetAnswer());
-            reader.Close();
 
             answers.ForEach(a => a.Response = response);
             return answers.AsReadOnly();

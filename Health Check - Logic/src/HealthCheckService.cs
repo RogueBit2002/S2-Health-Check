@@ -26,10 +26,10 @@ namespace HetBetereGroepje.HealthCheck.Logic
             this.dataService = dataService;
         }
 
-        public IHealthCheck CreateHealthCheck(uint ownerId, uint templateId, string name)
+        public IHealthCheck CreateHealthCheck(string tenantId, uint templateId, string name)
         {
             return dataService.CreateHealthCheck(
-                ownerId,
+                tenantId,
                 templateId,
                 Guid.NewGuid().ToString("N"),
                 name);
@@ -37,7 +37,7 @@ namespace HetBetereGroepje.HealthCheck.Logic
 
         public IHealthCheck GetHealthCheck(string hash) => dataService.GetHealthCheck(hash);
 
-        public IEnumerable<IHealthCheck> GetHealthChecksByManager(uint managerId) => dataService.GetHealthChecksByManager(managerId);
+        public IEnumerable<IHealthCheck> GetHealthChecksByTenant(string tenantId) => dataService.GetHealthChecksByTenant(tenantId);
         public void Dispose() => dataService.Dispose();
     }
 }

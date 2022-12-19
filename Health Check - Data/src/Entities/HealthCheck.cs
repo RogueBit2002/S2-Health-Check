@@ -13,14 +13,14 @@ namespace HetBetereGroepje.HealthCheck.Data.Entities
         public uint ID { get; set; }
         public string Hash { get; set; }
         public uint TemplateID { get; set; }
-        public uint OwnerID { get; set; }
+        public string TenantID { get; set; }
         public string Name { get; set; }
-        public HealthCheck(uint id, uint ownerId, uint templateId, string hash, string name)
+        public HealthCheck(uint id, string tenantId, uint templateId, string hash, string name)
         {
             ID = id;
             Hash = hash;
             TemplateID = templateId;
-            OwnerID = ownerId;
+            TenantID = tenantId;
             Name = name;
         }
     }
@@ -32,11 +32,11 @@ namespace HetBetereGroepje.HealthCheck.Data.Entities
         {
             uint id = reader.GetUInt32("id");
             string hash = reader.GetString("hash");
-            uint ownerId = reader.GetUInt32("owner_id");
+            string tenantId = reader.GetString("tenant_id");
             uint templateId = reader.GetUInt32("template_id");
             string name = reader.GetString("name");
 
-            return new HealthCheck(id, ownerId, templateId, hash, name);
+            return new HealthCheck(id, tenantId, templateId, hash, name);
         }
     }
 }
