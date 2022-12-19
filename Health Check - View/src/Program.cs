@@ -1,15 +1,34 @@
 using HetBetereGroepje.HealthCheck.Factory;
 using HetBetereGroepje.HealthCheck.ILogic;
-
-ServiceFactory.Init();
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddSession();
+var initialScopes = builder.Configuration["DownstreamApi:Scopes"]?.Split(' ') ?? builder.Configuration["MicrosoftGraph:Scopes"]?.Split(' ');
 
-builder.Services.AddScoped<IManagerService>(provider => ServiceFactory.Create<IManagerService>());
+// Add services to the container.
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"))
+        .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+            .AddMicrosoftGraph(builder.Configuration.GetSection("MicrosoftGraph"))
+            .AddInMemoryTokenCaches();
+
+builder.Services.AddAuthorization(options =>
+{
+    // By default, all incoming requests will be authorized according to the default policy.
+    options.FallbackPolicy = options.DefaultPolicy;
+});
+builder.Services.AddRazorPages()
+    .AddMicrosoftIdentityUI();
+
+
+ServiceFactory.Init();
+
 builder.Services.AddScoped<IHealthCheckService>(provider => ServiceFactory.Create<IHealthCheckService>());
 builder.Services.AddScoped<IResponseService>(provider => ServiceFactory.Create<IResponseService>());
 builder.Services.AddScoped<ITemplateService>(provider => ServiceFactory.Create<ITemplateService>());
@@ -21,21 +40,20 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
-app.UseSession();
-
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
+//app.MapRazorPages();
 app.MapControllers();
 
 app.Run();

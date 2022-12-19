@@ -18,12 +18,18 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
         [Route(AppConstants.Paths.Home)]
         public IActionResult Index()
         {
-            ManagerID = 1;
+
             //if (!IsLoggedIn)
-                //return RedirectToLoginPage();
+            //return RedirectToLoginPage();
 
+            /*
+            HttpContext.GetOwinContext().Authentication.Challenge(
+            new AuthenticationProperties { RedirectUri = "/" },
+            OpenIdConnectAuthenticationDefaults.AuthenticationType);*/
 
-            IEnumerable<IHealthCheck> healthChecks = healthCheckService.GetHealthChecksByManager(ManagerID);
+            //HttpContext.GetOwinContext();
+
+            IEnumerable<IHealthCheck> healthChecks = healthCheckService.GetHealthChecksByTenant(TenantID);
 
 
             return View((new HomeViewModel(

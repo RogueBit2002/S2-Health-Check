@@ -12,7 +12,7 @@ namespace HetBetereGroepje.HealthCheck.Domain
 
         public string Hash { get; }
 
-        public string OwnerID { get; }
+        public string TenantID { get; }
         public uint TemplateID { get; }
         public string Name { get; }
     }

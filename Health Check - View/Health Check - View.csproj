@@ -4,16 +4,33 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-Health_Check___View-7479B3B2-EAA1-4089-BB58-D2F298221464</UserSecretsId>
     <RootNamespace>HetBetereGroepje.HealthCheck.View</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.8" NoWarn="NU1605" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.24.1" />
+    <PackageReference Include="Microsoft.Identity.Web.MicrosoftGraph" Version="1.24.1" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.16.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="src\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Health Check - Data\Health Check - Data.csproj" />
-    <ProjectReference Include="..\Health Check - Factory\Health Check - Factory.csproj" />
     <ProjectReference Include="..\Health Check - Domain\Health Check - Domain.csproj" />
+    <ProjectReference Include="..\Health Check - Factory\Health Check - Factory.csproj" />
     <ProjectReference Include="..\Health Check - IData\Health Check - IData.csproj" />
     <ProjectReference Include="..\Health Check - ILogic\Health Check - ILogic.csproj" />
     <ProjectReference Include="..\Health Check - Logic\Health Check - Logic.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+	</ItemGroup>
+	
 </Project>

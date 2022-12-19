@@ -57,12 +57,34 @@ namespace HetBetereGroepje.HealthCheck.Data.src
                 cmd.ExecuteNonQuery();
 
             }
+
             return GetResponse((uint) command.LastInsertedId);
         }
 
         public IEnumerable<IResponse> GetAllResponses(uint healthCheckId)
         {
-            throw new NotImplementedException();
+            string query = "SELECT * FROM `response` WHERE `health_check_id`=@healthCheckId;";
+
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@healthCheckId", healthCheckId);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            List<Response> responses = new List<Response>();
+
+            while (reader.Read())
+            {
+                responses.Add(reader.GetResponse());
+            }
+
+            reader.Close();
+            foreach (var response in responses)
+            {
+                response.Answers = GetAnwersByResponse(response);
+
+            }
+
+            return responses.AsReadOnly();
         }
 
         public IResponse GetResponse(uint id)

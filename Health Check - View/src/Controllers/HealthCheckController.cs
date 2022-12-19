@@ -72,13 +72,13 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
         [Route("/health-check/create")]
         public IActionResult Create(IFormCollection formCollection)
         {
-            if (!IsLoggedIn)
-                return RedirectToLoginPage();
+            /*if (!IsLoggedIn)
+                return RedirectToLoginPage();*/
 
             string name = formCollection["name"];
             uint templateId = uint.Parse(formCollection["template"]);
 
-            healthCheckService.CreateHealthCheck(ManagerID, templateId, name);
+            healthCheckService.CreateHealthCheck(TenantID, templateId, name);
             return Redirect("/home");
         }
 
@@ -86,8 +86,8 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
         [Route("/health-check/{hash}/result")]
         public IActionResult Result(string hash)
         {
-            if (!IsLoggedIn)
-                return RedirectToLoginPage();
+            /*if (!IsLoggedIn)
+                return RedirectToLoginPage();*/
 
             IHealthCheck healthCheck = healthCheckService.GetHealthCheck(hash);
 
@@ -95,8 +95,9 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
                 return NotFound();
 
             IEnumerable<IResponse> responses = responseService.GetAllResponses(healthCheck.ID);
+            IEnumerable<IQuestion> questions = questionService.GetQuestionsByTemplate(healthCheck.TemplateID);
 
-            return View("Result", (healthCheck, responses));
+            return View("Result", (healthCheck, responses, questions));
         }
     }
 }

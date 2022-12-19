@@ -34,14 +34,14 @@ namespace HetBetereGroepje.HealthCheck.Data
         }
 
 
-        public IHealthCheck CreateHealthCheck(uint managerId, uint templateId, string hash, string name)
+        public IHealthCheck CreateHealthCheck(string tenantId, uint templateId, string hash, string name)
         {
             string query = @"INSERT INTO `health_check`(`tenant_id`,`template_id`, `hash`, `name`) VALUES
-(@owner_id, @templateId, @hash, @name);";
+(@tenantId, @templateId, @hash, @name);";
 
             MySqlCommand command = new MySqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("tenant_id", managerId);
+            command.Parameters.AddWithValue("tenantId", tenantId);
             command.Parameters.AddWithValue("templateId", templateId);
             command.Parameters.AddWithValue("hash", hash);
             command.Parameters.AddWithValue("name", name);
@@ -96,13 +96,12 @@ namespace HetBetereGroepje.HealthCheck.Data
             return healthCheck;
         }
 
-        public IEnumerable<IHealthCheck> GetHealthChecksByManager(uint managerId)
+        public IEnumerable<IHealthCheck> GetHealthChecksByTenant(string tenantId)
         {
-            string query = "SELECT * FROM `health_check` WHERE `tenant_id`=@tenant_id;";
-
+            string query = "SELECT * FROM `health_check` WHERE `tenant_id`=@tenantId;";
 
             MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("tenant_id", managerId);
+            command.Parameters.AddWithValue("tenantId", tenantId);
 
             MySqlDataReader reader = command.ExecuteReader();
 

@@ -9,11 +9,11 @@ namespace HetBetereGroepje.HealthCheck.IData
 {
     public interface IHealthCheckDataService : IDisposable
     {
-        public IHealthCheck CreateHealthCheck(uint managerId, uint templateId, string hash, string name);
+        public IHealthCheck CreateHealthCheck(string tenantId, uint templateId, string hash, string name);
         public IHealthCheck GetHealthCheck(uint id);
         public IHealthCheck GetHealthCheck(string hash);
 
-        public IEnumerable<IHealthCheck> GetHealthChecksByManager(uint managerId);
+        public IEnumerable<IHealthCheck> GetHealthChecksByTenant(string tenantId);
 
     }
 }
