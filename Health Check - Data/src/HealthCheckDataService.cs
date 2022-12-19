@@ -41,7 +41,7 @@ namespace HetBetereGroepje.HealthCheck.Data
 
             MySqlCommand command = new MySqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("tenantIda", tenantId);
+            command.Parameters.AddWithValue("tenantId", tenantId);
             command.Parameters.AddWithValue("templateId", templateId);
             command.Parameters.AddWithValue("hash", hash);
             command.Parameters.AddWithValue("name", name);
