@@ -29,19 +29,24 @@
                             </div>
                             <div class="modal-body modalcss">
                                 <form action="/health-check/create" method="Post">
-                                    <input type="text" name="name" required />
-                                    <select name="template" required>
-                                        @foreach (ITemplate template in Model.templates)
-                                        {
+                                    <div class="modalcssstuff">
+                                        <li>HealthCheck Name:<br /><input class="inputonecss" type="text" name="name" required /></li>
+                                        <br />
+                                        <li>Choose Template:<br /><select class="templatecss" name="template" required></li>
+                                            <br />
+                                            @foreach (ITemplate template in Model.templates)
+                                            {
                                             <option value="@template.ID">@template.Name</option>
-                                        }
-                                    </select>
-                                    <input type="submit" />
+                                            }
+                                        </select>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <input class="createknopjebobje" type="submit" />
+                                    </div>
                                 </form>
                             </div>
                             <div class="modal-footer modalfooter">
-                                <button class="btn btn-primary">CREATE</button>
-
                             </div>
                         </div>
                     </div>

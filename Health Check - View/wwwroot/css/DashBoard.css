@@ -100,8 +100,41 @@ h1{
 
 .modalcss{
     background-color: #232323;
-    height: 300px;
+    height: 350px;
 }
+.modalcssstuff{
+    color: white;
+}
+
+.modalcssstuff li{
+    font-size: 20px;
+}
+.inputonecss{
+    padding: 7px;
+    margin-top: 10px;
+}
+
+.templatecss {
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.modalcssstuff input inputonecss {
+    background-color: white;
+    border: none !important;
+    border: 3px solid black;
+    border-radius: 5px;
+}
+
+    .modalcssstuff select {
+        
+    }
+
+    .modalcss p {
+        color: white;
+    }
 
 .modalnavbar{
     background-color: #fff000;
@@ -117,8 +150,15 @@ h1{
 .modalfooter{
     background-color: #fff000;
     border: none !important;
+    height: 50px;
 }
 
 .closebutton{
     border-radius: 50px;
+}
+
+.createknopjebobje {
+    background-color: #fff000;
+    border: 1px solid black;
+    border-radius: 5px;
 }
