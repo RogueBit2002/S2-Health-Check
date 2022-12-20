@@ -96,7 +96,7 @@ namespace HetBetereGroepje.HealthCheck.Data.src
 
             MySqlDataReader reader = command.ExecuteReader();
 
-
+            reader.Read();
             Response response = reader.GetResponse();
 
             reader.Close();
@@ -118,7 +118,7 @@ namespace HetBetereGroepje.HealthCheck.Data.src
             List<Answer> answers = new List<Answer>();
             while (reader.Read())
                 answers.Add(reader.GetAnswer());
-
+            reader.Close();
             answers.ForEach(a => a.Response = response);
             return answers.AsReadOnly();
         }

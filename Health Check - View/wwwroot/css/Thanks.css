@@ -1,0 +1,15 @@
+﻿h1 {
+    color: white;
+    font-size: 300px;
+    text-align: center;
+    text-shadow: 5px 5px #FFF000;
+    margin-left: -5px;
+}
+
+ footer{
+     bottom: 0px;
+ }
+
+.divcss{
+    text-align: center;
+}

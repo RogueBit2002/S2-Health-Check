@@ -2,6 +2,9 @@
 @model (HomeViewModel model, IEnumerable<ITemplate> templates)
 
 <link rel="stylesheet" href="~/css/DashBoard.css" asp-append-version="true" />
+@{
+    int id = 1;
+}
 
 <div>
 
@@ -73,14 +76,16 @@
         </tr>
     </thead>
     <tbody>
-            @foreach (IHealthCheck healthCheck in @Model.model.healthChecks)
+            @foreach (KeyValuePair<IHealthCheck, IEnumerable<IResponse>> pair in @Model.model.healthChecks)
             {
-            <tr class="tableinsides">
-                <th scope="row">1</th>
-                <th> <a href="@AppConstants.Paths.HealthCheck/@healthCheck.Hash">@healthCheck.Name</a></th>
-                <th class="resultboard"><a class="textblock" href="@AppConstants.Paths.HealthCheck/@healthCheck.Hash/result">📈</a></th>
-                <th> Filled in: 10/100</th>
-            </tr>
+
+                <tr class="tableinsides">
+                    <th scope="row">@id</th>
+                    <th> <a href="@AppConstants.Paths.HealthCheck/@pair.Key.Hash">@pair.Key.Name</a></th>
+                    <th class="resultboard"><a class="textblock" href="@AppConstants.Paths.HealthCheck/@pair.Key.Hash/result">📈</a></th>
+                    <th>👨‍💻@pair.Value.Count() people filled in</th>
+                </tr>
+                id++;
             }
     </tbody>
 </table>
