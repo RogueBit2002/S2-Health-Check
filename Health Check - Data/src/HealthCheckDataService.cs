@@ -24,18 +24,20 @@ namespace HetBetereGroepje.HealthCheck.Data
 
         private HealthCheckDataService()
         {
-            connection = DatabaseConnectionFactory.CreateConnection();
+            //connection = DatabaseConnectionFactory.CreateConnection();
         }
 
         public void Dispose()
         {
-            connection.Close();
-            connection.Dispose();
+            //connection.Close();
+            //connection.Dispose();
         }
 
 
         public IHealthCheck CreateHealthCheck(string tenantId, uint templateId, string hash, string name)
         {
+            MySqlConnection connection = DatabaseConnectionFactory.CreateConnection();
+
             string query = @"INSERT INTO `health_check`(`tenant_id`,`template_id`, `hash`, `name`) VALUES
 (@tenantId, @templateId, @hash, @name);";
 
@@ -47,12 +49,14 @@ namespace HetBetereGroepje.HealthCheck.Data
             command.Parameters.AddWithValue("name", name);
 
             command.ExecuteNonQuery();
-
+            connection.Close();
             return GetHealthCheck((uint)command.LastInsertedId);
         }
 
         public IHealthCheck GetHealthCheck(uint id)
         {
+            MySqlConnection connection = DatabaseConnectionFactory.CreateConnection();
+
             string query = "SELECT * FROM `health_check` WHERE `id`=@id;";
 
 
@@ -70,11 +74,13 @@ namespace HetBetereGroepje.HealthCheck.Data
             Entities.HealthCheck healthCheck = reader.GetHealthCheck();
 
             reader.Close();
-
+            connection.Close();
             return healthCheck;
         }
         public IHealthCheck GetHealthCheck(string hash)
         {
+            MySqlConnection connection = DatabaseConnectionFactory.CreateConnection();
+
             string query = "SELECT * FROM `health_check` WHERE `hash`=@hash;";
 
 
@@ -92,12 +98,13 @@ namespace HetBetereGroepje.HealthCheck.Data
             Entities.HealthCheck healthCheck = reader.GetHealthCheck();
 
             reader.Close();
-
+            connection.Close();
             return healthCheck;
         }
 
         public IEnumerable<IHealthCheck> GetHealthChecksByTenant(string tenantId)
         {
+            MySqlConnection connection = DatabaseConnectionFactory.CreateConnection();
             string query = "SELECT * FROM `health_check` WHERE `tenant_id`=@tenantId;";
 
             MySqlCommand command = new MySqlCommand(query, connection);
@@ -111,7 +118,7 @@ namespace HetBetereGroepje.HealthCheck.Data
                 healthChecks.Add(reader.GetHealthCheck());
 
             reader.Close();
-
+            connection.Close();
             return healthChecks.AsReadOnly();
         }
 

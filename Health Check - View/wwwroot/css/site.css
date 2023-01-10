@@ -29,7 +29,7 @@ body {
 }
 
 .navbarcolor {
-    background-color: #fff000;
+    background-color: #ffe000;
 }
 
 
@@ -42,7 +42,7 @@ footer {
     position: absolute;
     height: 100px;
     width: 100%;
-    background-color: #fff000;
+    background-color: #ffe000;
     text-align: center;
 }
 
@@ -69,3 +69,5 @@ footer {
         padding: 10px;
         transition: 0.3s;
     }
+
+

@@ -22,17 +22,19 @@ namespace HetBetereGroepje.HealthCheck.Data
         private MySqlConnection connection;
         public TemplateDataService()
         {
-            connection = DatabaseConnectionFactory.CreateConnection();
+            //connection = DatabaseConnectionFactory.CreateConnection();
         }
 
         public void Dispose()
         {
-            connection.Close();
-            connection.Dispose();
+            //connection.Close();
+            //connection.Dispose();
         }
 
         public ITemplate CreateTemplate(string name)
         {
+            MySqlConnection connection = DatabaseConnectionFactory.CreateConnection();
+
             string query = @"INSERT INTO `template`(`name`) VALUES (@name);";
 
             MySqlCommand command = new MySqlCommand(query, connection);
@@ -40,12 +42,14 @@ namespace HetBetereGroepje.HealthCheck.Data
             command.Parameters.AddWithValue("name", name);
 
             command.ExecuteNonQuery();
-
+            connection.Close();
             return GetTemplate((uint)command.LastInsertedId);
         }
 
         public ITemplate GetTemplate(uint id)
         {
+            MySqlConnection connection = DatabaseConnectionFactory.CreateConnection();
+
             string query = "SELECT * FROM `template` WHERE `id`=@id;";
 
             MySqlCommand command = new MySqlCommand(query, connection);
@@ -62,12 +66,14 @@ namespace HetBetereGroepje.HealthCheck.Data
             Template template = reader.GetTemplate();
 
             reader.Close();
-
+            connection.Close();
             return template;
         }
 
         public IEnumerable<ITemplate> GetTemplates()
         {
+            MySqlConnection connection = DatabaseConnectionFactory.CreateConnection();
+
             string query = "SELECT * FROM `template`;";
 
             MySqlCommand command = new MySqlCommand(query, connection);
@@ -80,7 +86,7 @@ namespace HetBetereGroepje.HealthCheck.Data
                 templates.Add(reader.GetTemplate());
 
             reader.Close();
-
+            connection.Close();
             return templates.AsReadOnly();
         }
     }
