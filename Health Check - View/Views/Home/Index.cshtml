@@ -2,6 +2,9 @@
 @model (HomeViewModel model, IEnumerable<ITemplate> templates)
 
 <link rel="stylesheet" href="~/css/DashBoard.css" asp-append-version="true" />
+@{
+    int id = 1;
+}
 
 <div>
 
@@ -29,19 +32,24 @@
                             </div>
                             <div class="modal-body modalcss">
                                 <form action="/health-check/create" method="Post">
-                                    <input type="text" name="name" required />
-                                    <select name="template" required>
-                                        @foreach (ITemplate template in Model.templates)
-                                        {
+                                    <div class="modalcssstuff">
+                                        <li>HealthCheck Name:<br /><input class="inputonecss" type="text" name="name" required /></li>
+                                        <br />
+                                        <li>Choose Template:<br /><select class="templatecss" name="template" required></li>
+                                            <br />
+                                            @foreach (ITemplate template in Model.templates)
+                                            {
                                             <option value="@template.ID">@template.Name</option>
-                                        }
-                                    </select>
-                                    <input type="submit" />
+                                            }
+                                        </select>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <input class="createknopjebobje" type="submit" />
+                                    </div>
                                 </form>
                             </div>
                             <div class="modal-footer modalfooter">
-                                <button class="btn btn-primary">CREATE</button>
-
                             </div>
                         </div>
                     </div>
@@ -68,14 +76,16 @@
         </tr>
     </thead>
     <tbody>
-            @foreach (IHealthCheck healthCheck in @Model.model.healthChecks)
+            @foreach (KeyValuePair<IHealthCheck, IEnumerable<IResponse>> pair in @Model.model.healthChecks)
             {
-            <tr class="tableinsides">
-                <th scope="row">1</th>
-                <th> <a href="@AppConstants.Paths.HealthCheck/@healthCheck.Hash">@healthCheck.Name</a></th>
-                <th class="resultboard"><a class="textblock" href="@AppConstants.Paths.HealthCheck/@healthCheck.Hash">📈</a></th>
-                <th> Filled in: 10/100</th>
-            </tr>
+
+                <tr class="tableinsides">
+                    <th scope="row">@id</th>
+                    <th> <a href="@AppConstants.Paths.HealthCheck/@pair.Key.Hash">@pair.Key.Name</a></th>
+                    <th class="resultboard"><a class="textblock" href="@AppConstants.Paths.HealthCheck/@pair.Key.Hash/result">📈</a></th>
+                    <th>👨‍💻@pair.Value.Count() people filled in</th>
+                </tr>
+                id++;
             }
     </tbody>
 </table>

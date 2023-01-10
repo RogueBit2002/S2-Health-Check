@@ -7,14 +7,12 @@ namespace HetBetereGroepje.HealthCheck.View.Models
         public string absoluteUri;
         public string redirect;
         public string name;
-        public IEnumerable<IHealthCheck> healthChecks;
-        public uint FilledIn;
+        public Dictionary<IHealthCheck, IEnumerable<IResponse>> healthChecks;
 
-        public HomeViewModel(string absoluteUri, IEnumerable<IHealthCheck> healthChecks, uint filledIn)
+        public HomeViewModel(string absoluteUri, Dictionary<IHealthCheck, IEnumerable<IResponse>> healthCheckResultDictionary)
         {
             this.absoluteUri = absoluteUri;
-            this.healthChecks = healthChecks;
-            this.FilledIn = filledIn;
+            this.healthChecks = healthCheckResultDictionary;
         }
     }
 }

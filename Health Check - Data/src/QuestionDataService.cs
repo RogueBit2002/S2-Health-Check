@@ -22,16 +22,18 @@ namespace HetBetereGroepje.HealthCheck.Data
         private MySqlConnection connection;
         public QuestionDataService()
         {
-            connection = DatabaseConnectionFactory.CreateConnection();
+            //connection = DatabaseConnectionFactory.CreateConnection();
         }
 
         public void Dispose()
         {
-            connection.Close();
-            connection.Dispose();
+            //connection.Close();
+            //connection.Dispose();
         }
         public IQuestion CreateQuestion(uint templateId, string header, string description)
         {
+            MySqlConnection connection = DatabaseConnectionFactory.CreateConnection();
+
             string query = @"INSERT INTO `question`(`template_id`, `header`, `description`) VALUES
 (@templateId, @header, @description);";
 
@@ -42,12 +44,14 @@ namespace HetBetereGroepje.HealthCheck.Data
             command.Parameters.AddWithValue("description", description);
 
             command.ExecuteNonQuery();
-
+            connection.Close();
             return GetQuestion((uint)command.LastInsertedId);
         }
 
         public IQuestion GetQuestion(uint id)
         {
+            MySqlConnection connection = DatabaseConnectionFactory.CreateConnection();
+
             string query = "SELECT * FROM `question` WHERE `id`=@id;";
 
 
@@ -65,12 +69,14 @@ namespace HetBetereGroepje.HealthCheck.Data
             Question question = reader.GetQuestion();
 
             reader.Close();
-
+            connection.Close();
             return question;
         }
 
         public IEnumerable<IQuestion> GetQuestionsByTemplate(uint templateId)
         {
+            MySqlConnection connection = DatabaseConnectionFactory.CreateConnection();
+
             string query = "SELECT * FROM `question` WHERE `template_id`=@id;";
 
             MySqlCommand command = new MySqlCommand(query, connection);
@@ -84,7 +90,7 @@ namespace HetBetereGroepje.HealthCheck.Data
                 questions.Add(reader.GetQuestion());
 
             reader.Close();
-
+            connection.Close();
             return questions.AsReadOnly();
         }
     }

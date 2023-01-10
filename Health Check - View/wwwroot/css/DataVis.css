@@ -1,0 +1,43 @@
+﻿.chartMain {
+    display: inline-block;
+    width: 40%;
+}
+
+.MyCoolButton {
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background: #FFE000;
+    width: 100%;
+    position: relative;
+}
+
+.buttonsMain {
+    display: inline-block;
+    float: left;
+    overflow-y: auto; 
+    height:500px;
+    margin-right: 20px;
+
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 224, 0, 0.75);
+    border-radius: 15px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 224, 0, 1);
+}

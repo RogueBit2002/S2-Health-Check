@@ -1,140 +1,168 @@
 ﻿@using HetBetereGroepje.HealthCheck.Domain
 @using Newtonsoft.Json
 @model (IHealthCheck healthCheck, IEnumerable<IResponse> responses, IEnumerable<IQuestion> questions)
-@{
-    /* 
-        string data()
-        {
-        string dataReturn = "";
-        List<IResponse> responsesList = Model.responses.ToList();
+<link rel="stylesheet" href="~/css/DataVis.css" asp-append-version="true" />
 
-        List<double> answerCollection = new List<double> { 0, 0, 0 };
+<div class="col text-center">
 
-        for (int i = 0; i < responsesList.Count(); i++ )
-            {
-            for (int j = 0; j < responsesList[i].Answers.Count(); j++)
+    <h1>@ViewData["Title"]</h1>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        
+    <!-- script for json list or responses and answers -->
+    <script>
+        let questions = @Html.Raw(JsonConvert.SerializeObject(
+                Model.questions,
+                Formatting.None,
+                new JsonSerializerSettings
                 {
-                answerCollection[j] += responsesList[i].Answers.ToList()[j].Value;
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                }
+            ));
+
+        let responses = @Html.Raw(@JsonConvert.SerializeObject(
+                Model.responses, 
+                Formatting.None,
+                new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                }
+            ));
+    </script>
+
+
+    <script>
+        let answersArray = [];
+        let amountOfAnswers = responses[0].Answers.length;
+        let amountOfResponses = responses.length;
+        let averageArray = [];
+        
+        /*Set array values to 0*/
+        for(let i = 0; i < amountOfAnswers; i++) {
+            answersArray[i] = 0;
         }
-        }
-
-        for (int k = 0; k < answerCollection.Count(); k++)
-            {
-            answerCollection[k] = answerCollection[k] / responsesList.Count();
-        }
-
-        foreach (var average in answerCollection)
-            {
-            dataReturn += average.ToString() + ", ";
-        }
-
-        return dataReturn.Remove(dataReturn.Length - 2, 2);
-
-    }
 
 
-    IEnumerable<string> labels()
+        /*responsible for adding all answervalues together*/
+        for(let i = 0; i < responses.length; i++) 
         {
-        return new List<string> {"Dit is 1", "Dit is 2", "Dit is 3"};
-    }
-    */
+            for (let j = 0; j < responses[i].Answers.length; j++) 
+            {
+                answersArray[j] += responses[i].Answers[j].Value;
+            }
+        }
 
-}
+        /*Responsible for getting the averages for every question*/
+        for(let i = 0; i < amountOfAnswers; i++) 
+        {
+            averageArray[i] = answersArray[i] / amountOfResponses;
+        }
 
-<div class="container bg-light">
-    <div class="col text-center">
+        /*sort the questions by quistionid  (makes sure they are in the same order always) */
+        questions = questions.sort((q) => q.ID);
+        
+        
+        /*sorts all the answers of a response by the questionID */
+        for(let i = 0; i < responses.length; i ++)
+        {
+            responses[i].Answers = responses[i].Answers.sort((a) => a.QuestionID);
+        }
+    </script>
 
-        <h1>@ViewData["Title"]</h1>
-
-        <div>
-            <canvas id="myChart"></canvas>
+        <div class="buttonsMain">
+            <div id="result-container">
+                <div class="result-item">
+                    <button onclick="viewResults(averageArray);" class="MyCoolButton">View Average</button>
+                </div>
+                <hr />
+            </div>
+        </div>
+        
+        <div class="chartMain"> 
+            <canvas id="chart"></canvas>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script>
-            const ctx = document.getElementById('myChart');
+    <script>
+        const ctx = document.getElementById('chart');
+        let chart = null;
+        
+        const resultContainer = document.getElementById("result-container");
+        for(let i = 0; i < responses.length; i ++)
+        {
+            let container = document.createElement("div");
+            let button = document.createElement("button");
+
+            container.classList.add("result-item");
+            button.classList.add("MyCoolButton");
             
-            let questions = @Html.Raw(JsonConvert.SerializeObject(
-                    Model.questions,
-                    Formatting.None,
-                    new JsonSerializerSettings
-                    {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                    }
-                ));
+            button.innerHTML = "View Result " + (i+1);
 
-            let responses = @Html.Raw(@JsonConvert.SerializeObject(
-                    Model.responses, 
-                    Formatting.None,
-                    new JsonSerializerSettings
-                    {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    }
-                ));
+            container.appendChild(button);
 
-            let answersArray = [];
-            let amountOfAnswers = responses[0].Answers.length;
-            let amountOfResponses = responses.length;
-
-            for(let i = 0; i < amountOfAnswers; i++) {
-                answersArray[i] = 0;
+            button.onclick = () => {
+                viewResults(responses[i].Answers.map(a => a.Value));
             }
 
-            for(let i = 0; i < responses.length; i++) 
-            {
-                for (let j = 0; j < responses[i].Answers.length; j++) 
-                {
-                    answersArray[j] += responses[i].Answers[j].Value;
-                }
-            }
+            resultContainer.appendChild(container);
+        }
 
-            let averageArray = [];
+        function viewResults(dataset)
+        {
+            if(chart !== null)
+                chart.destroy();
 
-            for(let i = 0; i < amountOfAnswers; i++) 
-            {
-                averageArray[i] = answersArray[i] / amountOfResponses;
-            }
-
-            questions = questions.sort((q) => q.ID);
-            
-            for(let i = 0; i < responses.length; i ++)
-            {
-                responses[i].Answers = responses[i].Answers.sort((a) => a.QuestionID);
-            }
-            /*
-            const config = {
-                type: 'radar',
-                data: data,
-                options: {
-                    elements: {
-                        line: {
-                            borderWidth: 3
-                        }
-                    }
-                },
-            };*/
-
-            new Chart(ctx, {
+            chart = new Chart(ctx, {
                 type: 'radar',
                 data: {
                     labels: questions.map(q => q.Header),
                     datasets: [{
-                        label: 'Your Score',
-                        data: averageArray,
+                        label: 'Score',
+                        data: dataset,
+                        borderColor: 'rgb(255, 224, 0)',
+                        pointBackgroundColor: 'rgb(35, 35, 35)',
+                        pointHitRadius: '7',
                         borderWidth: 1
                     }]
                 },
                 options: {
+                    backgroundColor: 'rgba(255, 224, 0, 0.25)',
                     scale: {
                         beginAtZero: true,
                         min: 0,
                         stepSize: 1,
-                        max: 5
+                        max: 5,
+
+                    },
+                    scales: {
+                        r: {
+                            pointLabels: {
+                                color: 'rgb(220, 220, 220)',
+                                font: {
+                                    size: 14
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(255, 224, 0, 0.6)',
+                                font: {
+                                    size: 14
+                                }
+
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(0,0,0,0)',
+                                color: 'rgb(220, 220, 220)',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
                     }
                 }
             });
+        }
 
-            
-        </script>
-    </div>
+        viewResults(averageArray);
+    </script>
 </div>

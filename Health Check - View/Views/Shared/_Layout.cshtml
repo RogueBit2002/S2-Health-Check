@@ -15,7 +15,7 @@
                 <a class="navbarimage" asp-controller="Home" asp-action="Index">
                     <img src="~/Images/logo.png" alt="" class="d-inline-block align-text-top image">
                 </a>
-                <a class="size logout">Logout</a>
+                <partial name="_LoginPartial" />
             </div>
         </nav>
     </header>
@@ -27,7 +27,7 @@
 
     <footer class="footer text-muted borderfoot">
         <div class="container">
-            &copy; 2022 - Health Check - <a href="https://www.teamrockstars.nl/">Privacy<a>
+            &copy; 2022 - Health Check - <a href="https://www.teamrockstars.nl/privacy-policy/">Privacy<a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

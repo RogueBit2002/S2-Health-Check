@@ -2,6 +2,7 @@
 using HetBetereGroepje.HealthCheck.ILogic;
 using HetBetereGroepje.HealthCheck.View.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design;
 
 namespace HetBetereGroepje.HealthCheck.View.Controllers
 {
@@ -9,10 +10,12 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
     {
         private readonly IHealthCheckService healthCheckService;
         private readonly ITemplateService templateService;
-        public HomeController(IHealthCheckService healthCheckService, ITemplateService templateService)
+        private readonly IResponseService responseService;
+        public HomeController(IHealthCheckService healthCheckService, ITemplateService templateService,IResponseService responseService)
         {
             this.healthCheckService = healthCheckService;
             this.templateService = templateService;
+            this.responseService = responseService;
         }
 
         [Route(AppConstants.Paths.Home)]
@@ -29,12 +32,16 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
 
             //HttpContext.GetOwinContext();
 
-            IEnumerable<IHealthCheck> healthChecks = healthCheckService.GetHealthChecksByTenant(TenantID);
+            //IEnumerable<IHealthCheck> healthChecks = healthCheckService.GetHealthChecksByTenant(TenantID);
+            Dictionary<IHealthCheck, IEnumerable<IResponse>> map = new Dictionary<IHealthCheck, IEnumerable<IResponse>>();
+
+            foreach (IHealthCheck healthCheck in healthCheckService.GetHealthChecksByTenant(TenantID))
+                map.Add(healthCheck, responseService.GetAllResponses(healthCheck.ID));
 
 
             return View((new HomeViewModel(
                 HttpContext.Request.Path + HttpContext.Request.QueryString,
-                healthChecks, 10), templateService.GetTemplates()));
+                map), templateService.GetTemplates()));
         }
     }
 }
