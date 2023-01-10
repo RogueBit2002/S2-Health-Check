@@ -68,3 +68,11 @@ h1 {
     font-size: 20px;
 }
 
+.MyCoolButton {
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background: #FFE000;
+    width: 100%;
+    position: relative;
+}
