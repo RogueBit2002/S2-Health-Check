@@ -10,25 +10,25 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        
+
     <!-- script for json list or responses and answers -->
     <script>
         let questions = @Html.Raw(JsonConvert.SerializeObject(
-                Model.questions,
-                Formatting.None,
-                new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                }
+            Model.questions,
+            Formatting.None,
+            new JsonSerializerSettings
+            {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            }
             ));
 
         let responses = @Html.Raw(@JsonConvert.SerializeObject(
-                Model.responses, 
-                Formatting.None,
-                new JsonSerializerSettings
-                {
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                }
+            Model.responses,
+            Formatting.None,
+            new JsonSerializerSettings
+            {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            }
             ));
     </script>
 
@@ -38,66 +38,66 @@
         let amountOfAnswers = responses[0].Answers.length;
         let amountOfResponses = responses.length;
         let averageArray = [];
-        
+
         /*Set array values to 0*/
-        for(let i = 0; i < amountOfAnswers; i++) {
+        for (let i = 0; i < amountOfAnswers; i++) {
             answersArray[i] = 0;
         }
 
 
         /*responsible for adding all answervalues together*/
-        for(let i = 0; i < responses.length; i++) 
-        {
-            for (let j = 0; j < responses[i].Answers.length; j++) 
-            {
+        for (let i = 0; i < responses.length; i++) {
+            for (let j = 0; j < responses[i].Answers.length; j++) {
                 answersArray[j] += responses[i].Answers[j].Value;
             }
         }
 
         /*Responsible for getting the averages for every question*/
-        for(let i = 0; i < amountOfAnswers; i++) 
-        {
+        for (let i = 0; i < amountOfAnswers; i++) {
             averageArray[i] = answersArray[i] / amountOfResponses;
         }
 
         /*sort the questions by quistionid  (makes sure they are in the same order always) */
         questions = questions.sort((q) => q.ID);
-        
-        
+
+
         /*sorts all the answers of a response by the questionID */
-        for(let i = 0; i < responses.length; i ++)
-        {
+        for (let i = 0; i < responses.length; i++) {
             responses[i].Answers = responses[i].Answers.sort((a) => a.QuestionID);
         }
     </script>
 
-        <div class="buttonsMain">
-            <div id="result-container">
-                <div class="result-item">
-                    <button onclick="viewResults(averageArray);" class="MyCoolButton">View Average</button>
-                </div>
-                <hr />
+    <div class="buttonsMain">
+        <div id="result-container">
+            <div class="result-item">
+                <button onclick="viewResults(averageArray);" class="MyCoolButton">View Average</button>
             </div>
+            <hr />
         </div>
-        
-        <div class="chartMain"> 
-            <canvas id="chart"></canvas>
+    </div>
+    <div class="scroll-downs">
+        <div class="mousey">
+            <div class="scroller"></div>
         </div>
+    </div>
+
+    <div class="chartMain">
+        <canvas id="chart"></canvas>
+    </div>
 
     <script>
         const ctx = document.getElementById('chart');
         let chart = null;
-        
+
         const resultContainer = document.getElementById("result-container");
-        for(let i = 0; i < responses.length; i ++)
-        {
+        for (let i = 0; i < responses.length; i++) {
             let container = document.createElement("div");
             let button = document.createElement("button");
 
             container.classList.add("result-item");
             button.classList.add("MyCoolButton");
-            
-            button.innerHTML = "View Result " + (i+1);
+
+            button.innerHTML = "View Result " + (i + 1);
 
             container.appendChild(button);
 
@@ -108,9 +108,8 @@
             resultContainer.appendChild(container);
         }
 
-        function viewResults(dataset)
-        {
-            if(chart !== null)
+        function viewResults(dataset) {
+            if (chart !== null)
                 chart.destroy();
 
             chart = new Chart(ctx, {
@@ -135,8 +134,15 @@
                         max: 5,
 
                     },
+                    plugins: {
+                        legend:
+                        {
+                            display: false
+                        },
+                    },
                     scales: {
                         r: {
+
                             pointLabels: {
                                 color: 'rgb(220, 220, 220)',
                                 font: {

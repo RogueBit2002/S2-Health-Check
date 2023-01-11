@@ -68,3 +68,19 @@ h1 {
     font-size: 20px;
 }
 
+.submitje {
+    background-color: #FFe000;
+    width: 80%;
+    margin-bottom: 100px;
+    height: 40px;
+    margin-left: 120px;
+    transition: 0.3s;
+    border-radius: 10px;
+}
+
+    .submitje:hover {
+        transform: scale(0.98);
+        transition: 0.3s;
+        border-radius: 20px;
+    }
+
