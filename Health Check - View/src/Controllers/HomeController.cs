@@ -38,10 +38,10 @@ namespace HetBetereGroepje.HealthCheck.View.Controllers
             foreach (IHealthCheck healthCheck in healthCheckService.GetHealthChecksByTenant(TenantID))
                 map.Add(healthCheck, responseService.GetAllResponses(healthCheck.ID));
 
-
+            
             return View((new HomeViewModel(
                 HttpContext.Request.Path + HttpContext.Request.QueryString,
-                map), templateService.GetTemplates()));
+                map), templateService.GetTemplates(), $"{Request.Scheme}://{this.Request.Host}"));
         }
     }
 }

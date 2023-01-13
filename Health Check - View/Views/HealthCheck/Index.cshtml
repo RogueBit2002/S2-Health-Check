@@ -1,6 +1,8 @@
 ﻿@using HetBetereGroepje.HealthCheck.Domain;
 @model HealthCheckViewModel; 
-
+@{
+    Layout = "_LayoutNoLogin";
+}
 
 <link rel="stylesheet" href="~/css/HealthCheck.css" asp-append-version="true" />
 
@@ -15,7 +17,7 @@
     <br />
     <form action="/health-check/@Model.healthCheck.Hash/submit" method="Post">
         <label class="emailtag">Email (optional):</label>
-        <input type="text" name="email"/>
+        <input type="text" name="email" autocomplete="off"/>
         <br />
         <br />
         <h3>Questions:</h3>

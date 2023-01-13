@@ -78,7 +78,14 @@ a {
     margin-top: 5px;
     margin-bottom: 5px;
     background-color: rgba(102, 102, 102,0.3);
-    vertical-align: middle
+    vertical-align: middle;
+}
+
+.smaller-a {
+    width: calc(100% - 150px);
+    position: relative;
+    display:inline;
+    float:left;
 }
 
     .tabletest a:hover {
@@ -162,3 +169,13 @@ h1 {
     border: 1px solid black;
     border-radius: 5px;
 }
+.copytje{
+    position:relative;
+    width:98px;
+    display:inline;
+    float: right;
+    margin-left:-15px;
+
+}
+
+
